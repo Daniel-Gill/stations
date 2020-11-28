@@ -7,7 +7,7 @@ import subprocess
 
 def main(base_dir, target_dir):
     # Delete anything in the target directory
-    subprocess.check_call(["rm", "-rf", target_dir])
+    #subprocess.check_call(["rm", "-rf", target_dir])
     os.mkdir(target_dir)
     # Read the lines
     with open(os.path.join(base_dir, "system.yaml")) as fh:
@@ -26,11 +26,11 @@ def main(base_dir, target_dir):
             else:
                 raise ValueError("Could not find YAML file for station %s" % station_code)
             # Copy its model file
-            subprocess.check_call([
-                "cp",
-                os.path.join(path, station['model']),
-                os.path.join(target_dir, "%s.three" % station_code),
-            ])
+            #subprocess.check_call([
+            #    "cp",
+            os.path.join(path, station['model']),
+            os.path.join(target_dir, "%s.three" % station_code),
+            #])
             # Modify where the model path points
             station['model'] = "%s.three" % station_code
             # Write a detailed file
@@ -43,7 +43,7 @@ def main(base_dir, target_dir):
                 "model": station['model'],
                 "meta": "%s.json" % station_code,
             }
-            print "Parsed %s (%s)" % (station['title'], station_code)
+            # print "Parsed %s (%s)" % (station['title'], station_code)
     # Save that as a JSON blob
     with open(os.path.join(target_dir, "_system.json"), "w") as fh:
         json.dump(system, fh)
